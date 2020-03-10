@@ -13,6 +13,9 @@ function reducer(state, action) {
         case 'reset':
           resolve({ ...initialState });
           break;
+        case 'set':
+          resolve({...state, count: action.payload})
+          break;
         default:
           resolve(state);
           break;

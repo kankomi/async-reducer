@@ -8,7 +8,8 @@ const Counter = () => {
   const [loading, setLoading] = useState({
     up: false,
     down: false,
-    reset: false
+    reset: false,
+    set100: false
   });
 
   const handleAction = action => {
@@ -19,6 +20,10 @@ const Counter = () => {
     if (action === actions.down) {
       setLoading(prev => ({ ...prev, down: true }));
       action().finally(() => setLoading(prev => ({ ...prev, down: false })));
+    }
+    if (action === actions.set) {
+      setLoading(prev => ({ ...prev, set100: true }));
+      action(100).finally(() => setLoading(prev => ({ ...prev, set100: false })));
     }
     if (action === actions.reset) {
       setLoading(prev => ({ ...prev, reset: true }));
@@ -34,6 +39,9 @@ const Counter = () => {
       </button>
       <button onClick={() => handleAction(actions.down)}>
         <LoadingText isLoading={loading.down}>Down</LoadingText>
+      </button>
+      <button onClick={() => handleAction(actions.set)}>
+        <LoadingText isLoading={loading.set100}>set to 100</LoadingText>
       </button>
       <button onClick={() => handleAction(actions.reset)}>
         <LoadingText isLoading={loading.reset}>Reset</LoadingText>
